@@ -4,6 +4,7 @@
 TagManager:
   serializedVersion: 2
   tags:
+<<<<<<< Updated upstream
   
 RedBLock
 OrangeBlock
@@ -24,3 +25,54 @@ locked: 0
 name: New Layer 2
 uniqueID: 1930382533
 locked: 0
+=======
+  - OrangeBlock
+  - Switch
+  - RedBlock
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - BackGround
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: BackGround
+    uniqueID: 2582191407
+    locked: 0
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: Player
+    uniqueID: 2988445233
+    locked: 0
+  - name: New Layer 2
+    uniqueID: 1930382533
+    locked: 0
+>>>>>>> Stashed changes
