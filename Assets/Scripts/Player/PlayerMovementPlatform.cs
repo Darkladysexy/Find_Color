@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovementPlatform : MonoBehaviour
 {
     [SerializeField]
     private float speed = 1f;
     private Rigidbody2D rb;
-    private SpriteRenderer spriteRenderer;
+    private SpriteRenderer spriteRender;
     private Animator animator;
     public float jumpForce = 3f;
 
@@ -16,7 +16,7 @@ public class PlayerMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRender = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
