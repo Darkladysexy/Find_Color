@@ -56,5 +56,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "Find_Color.sln"
+    "dotnet.defaultSolution": "FindColor.sln"
 }
