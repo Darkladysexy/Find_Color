@@ -4,11 +4,18 @@
 TagManager:
   serializedVersion: 2
   tags:
+<<<<<<< Updated upstream
   - RedBlock
   - Switch
   - OrangeBlock
   - Ground
   - Trap
+=======
+  - Ground
+  - RedBlock
+  - Switch
+  - OrangeBlock
+>>>>>>> Stashed changes
   layers:
   - Default
   - TransparentFX
@@ -47,5 +54,9 @@ TagManager:
     uniqueID: 0
     locked: 0
   - name: Player
+<<<<<<< Updated upstream
     uniqueID: 3992719299
+=======
+    uniqueID: 2275547735
+>>>>>>> Stashed changes
     locked: 0
