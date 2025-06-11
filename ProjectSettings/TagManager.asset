@@ -3,13 +3,7 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags:
-<<<<<<< Updated upstream
-  - RedBlock
-  - Switch
-  - OrangeBlock
-  - Ground
-  - Trap
+  tags: []
   layers:
   - Default
   - TransparentFX
@@ -46,11 +40,4 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
-    locked: 0
-  - name: Player
-<<<<<<< Updated upstream
-    uniqueID: 3992719299
-=======
-    uniqueID: 2275547735
->>>>>>> Stashed changes
     locked: 0
