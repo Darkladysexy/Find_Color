@@ -9,6 +9,7 @@ TagManager:
   - OrangeBlock
   - Ground
   - Trap
+  - Clone
   layers:
   - Default
   - TransparentFX
