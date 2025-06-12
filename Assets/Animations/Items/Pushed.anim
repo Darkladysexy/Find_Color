@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: PurplePlayerIdle
+  m_Name: Pushed
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -21,7 +21,7 @@ AnimationClip:
   - serializedVersion: 2
     curve:
     - time: 0
-      value: {fileID: 991474597, guid: addf71fb476b4d546b9df17a61f43298, type: 3}
+      value: {fileID: 476952676, guid: 1023c296385030640bea61c9b65bdfd5, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -44,7 +44,7 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     pptrCurveMapping:
-    - {fileID: 991474597, guid: addf71fb476b4d546b9df17a61f43298, type: 3}
+    - {fileID: 476952676, guid: 1023c296385030640bea61c9b65bdfd5, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}

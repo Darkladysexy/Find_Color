@@ -40,8 +40,15 @@ public class PlayerMovementPlatform : MonoBehaviour
         Debug.Log(PlayerCollision.instant.onGround);
         if (Input.GetKeyDown(KeyCode.Space) && PlayerCollision.instant.onGround)
         {
-
-            rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+            float zRotation = transform.eulerAngles.z;
+            if (Mathf.Approximately(zRotation, 0f))
+            {
+                rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+            }
+            else if (Mathf.Approximately(zRotation, 180f))
+            {
+                rb.AddForce(Vector2.up * -jumpForce, ForceMode2D.Impulse);
+            }
         }
     }
 
