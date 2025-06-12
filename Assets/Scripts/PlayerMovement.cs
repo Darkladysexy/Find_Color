@@ -25,7 +25,7 @@ public class PlayerMovement : MonoBehaviour
             GameManager.Instance.AttemptMove(Vector2.down);
         }
         else if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
-        {
+        {   
             // --- THÊM LOGIC LẬT HÌNH Ở ĐÂY ---
             // Đặt flipX = true để nhân vật nhìn sang trái
             spriteRenderer.flipX = true;
