@@ -6,6 +6,9 @@ TagManager:
   tags:
   - RedBlock
   - Switch
+  - OrangeBlock
+  - Ground
+  - Trap
   layers:
   - Default
   - TransparentFX

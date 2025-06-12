@@ -5,9 +5,7 @@ public class SwitchController : MonoBehaviour
     public bool isActivated = false;
     private SpriteRenderer spriteRenderer;
     private Color originalColor;
-
-    // Định nghĩa sẵn màu cam để dễ sử dụng
-    private readonly Color orangeColor = new Color(1f, 0.64f, 0f);
+    private readonly Color orangeActivatedColor = new Color(1f, 0.64f, 0f);
 
     private void Awake()
     {
@@ -17,22 +15,21 @@ public class SwitchController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        // Kiểm tra xem có phải là khối có thể đẩy không
         if (other.CompareTag("RedBlock") || other.CompareTag("OrangeBlock"))
         {
             isActivated = true;
             
-            // Đổi màu công tắc dựa trên màu của khối
             if (other.CompareTag("OrangeBlock"))
             {
-                spriteRenderer.color = orangeColor; // Đổi thành màu cam
+                spriteRenderer.color = orangeActivatedColor;
             }
-            else // Nếu là "RedBlock"
+            else
             {
-                spriteRenderer.color = Color.red; // Đổi thành màu đỏ
+                spriteRenderer.color = Color.red;
             }
             
-            // Lưu ý: Chúng ta không gọi CheckWinCondition() ở đây nữa để tránh lỗi
+            // THÊM LẠI: Chủ động báo cho GameManager kiểm tra sau khi trạng thái thay đổi
+            GameManager.Instance.CheckWinCondition();
         }
     }
 
@@ -41,7 +38,10 @@ public class SwitchController : MonoBehaviour
         if (other.CompareTag("RedBlock") || other.CompareTag("OrangeBlock"))
         {
             isActivated = false;
-            spriteRenderer.color = originalColor; // Trả về màu gốc
+            spriteRenderer.color = originalColor;
+
+            // THÊM LẠI: Báo cho GameManager kiểm tra cả khi khối đi ra
+            GameManager.Instance.CheckWinCondition();
         }
     }
 }
