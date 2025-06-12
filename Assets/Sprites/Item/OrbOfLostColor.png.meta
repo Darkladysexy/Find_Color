@@ -34,7 +34,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -43,12 +43,16 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+<<<<<<< Updated upstream
+  spritePixelsToUnits: 8
+=======
+  spritePixelsToUnits: 16
+>>>>>>> Stashed changes
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -72,7 +76,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -93,9 +97,253 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: OrbOfLostColor_0
+      rect:
+        serializedVersion: 2
+<<<<<<< Updated upstream
+        x: 1
+        y: 1
+        width: 10
+        height: 10
+=======
+        x: 2
+        y: 2
+        width: 8
+        height: 8
+>>>>>>> Stashed changes
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+<<<<<<< Updated upstream
+      spriteID: b147a06138a5ba342a0c73b2c1cc1bbe
+      internalID: -539478358
+=======
+      spriteID: 353ebd108d4185e41893bac331deaca7
+      internalID: 1008279593
+>>>>>>> Stashed changes
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OrbOfLostColor_1
+      rect:
+        serializedVersion: 2
+<<<<<<< Updated upstream
+        x: 11
+        y: 1
+        width: 10
+        height: 10
+=======
+        x: 12
+        y: 2
+        width: 8
+        height: 8
+>>>>>>> Stashed changes
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+<<<<<<< Updated upstream
+      spriteID: 3b6c117bf7deb874d9b0ce6a35cf0762
+      internalID: 1388486018
+=======
+      spriteID: b58d79b066c718e41b0a18be4201784a
+      internalID: -1809559776
+>>>>>>> Stashed changes
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OrbOfLostColor_2
+      rect:
+        serializedVersion: 2
+<<<<<<< Updated upstream
+        x: 21
+        y: 1
+        width: 10
+        height: 10
+=======
+        x: 22
+        y: 2
+        width: 8
+        height: 8
+>>>>>>> Stashed changes
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+<<<<<<< Updated upstream
+      spriteID: 12c3d5dcd4ca5b143a82943c6600dccd
+      internalID: 674901633
+=======
+      spriteID: 8b1dfbaa448479d40b7d29ea58db2aa8
+      internalID: 1143059113
+>>>>>>> Stashed changes
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OrbOfLostColor_3
+      rect:
+        serializedVersion: 2
+<<<<<<< Updated upstream
+        x: 31
+        y: 1
+        width: 10
+        height: 10
+=======
+        x: 32
+        y: 2
+        width: 8
+        height: 8
+>>>>>>> Stashed changes
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+<<<<<<< Updated upstream
+      spriteID: 82547ef8d293977498f5ee950c8a84e5
+      internalID: -762120440
+=======
+      spriteID: 772bb8e25e8cd0643be27ce2586fa6e8
+      internalID: 2086315492
+>>>>>>> Stashed changes
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OrbOfLostColor_4
+      rect:
+        serializedVersion: 2
+<<<<<<< Updated upstream
+        x: 41
+        y: 1
+        width: 10
+        height: 10
+=======
+        x: 42
+        y: 2
+        width: 8
+        height: 8
+>>>>>>> Stashed changes
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+<<<<<<< Updated upstream
+      spriteID: 84c11009c5299a344867a1d7d7495a0d
+      internalID: 537359389
+=======
+      spriteID: 38b7d7e6a3147bc4182ef7af4dafe7b2
+      internalID: -1755347508
+>>>>>>> Stashed changes
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OrbOfLostColor_5
+      rect:
+        serializedVersion: 2
+<<<<<<< Updated upstream
+        x: 51
+        y: 1
+        width: 10
+        height: 10
+=======
+        x: 52
+        y: 2
+        width: 8
+        height: 8
+>>>>>>> Stashed changes
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+<<<<<<< Updated upstream
+      spriteID: f7d6ebe4f319aec4ab1c093f34d4c1e6
+      internalID: -1615022867
+=======
+      spriteID: 5c2f5ed6c0306aa4495d67a8dcc53712
+      internalID: 879265108
+>>>>>>> Stashed changes
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OrbOfLostColor_6
+      rect:
+        serializedVersion: 2
+<<<<<<< Updated upstream
+        x: 61
+        y: 1
+        width: 10
+        height: 10
+=======
+        x: 62
+        y: 2
+        width: 8
+        height: 8
+>>>>>>> Stashed changes
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+<<<<<<< Updated upstream
+      spriteID: 45d7f67d61f5ab44cbd6354d709ae32e
+      internalID: -186284135
+=======
+      spriteID: c1f4b5bcdc1ca7247bc016f10b4abae2
+      internalID: 1103256802
+>>>>>>> Stashed changes
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -106,7 +354,24 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+<<<<<<< Updated upstream
+      OrbOfLostColor_0: -539478358
+      OrbOfLostColor_1: 1388486018
+      OrbOfLostColor_2: 674901633
+      OrbOfLostColor_3: -762120440
+      OrbOfLostColor_4: 537359389
+      OrbOfLostColor_5: -1615022867
+      OrbOfLostColor_6: -186284135
+=======
+      OrbOfLostColor_0: 1008279593
+      OrbOfLostColor_1: -1809559776
+      OrbOfLostColor_2: 1143059113
+      OrbOfLostColor_3: 2086315492
+      OrbOfLostColor_4: -1755347508
+      OrbOfLostColor_5: 879265108
+      OrbOfLostColor_6: 1103256802
+>>>>>>> Stashed changes
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

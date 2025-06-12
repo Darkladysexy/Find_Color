@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerCollision : MonoBehaviour
+public class FootClone : MonoBehaviour
 {
     public bool onGround = false;
-    public static PlayerCollision instant;
+    public static FootClone instant;
     void Awake()
     {
         instant = this;

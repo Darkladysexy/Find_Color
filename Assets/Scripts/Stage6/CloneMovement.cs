@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovementPlatform : MonoBehaviour
+public class CloneMovement : MonoBehaviour
 {
     [SerializeField]
     private float speed = 5f;
@@ -10,7 +10,7 @@ public class PlayerMovementPlatform : MonoBehaviour
     private SpriteRenderer spriteRender;
     private Animator animator;
     public float jumpForce = 7f;
-    public static PlayerMovementPlatform instant;
+    public static CloneMovement instant;
     void Awake()
     {
         instant = this;
@@ -37,8 +37,8 @@ public class PlayerMovementPlatform : MonoBehaviour
     }
     private void Jump()
     {
-        Debug.Log(PlayerCollision.instant.onGround);
-        if (Input.GetKeyDown(KeyCode.Space) && PlayerCollision.instant.onGround)
+        Debug.Log(FootClone.instant.onGround);
+        if (Input.GetKeyDown(KeyCode.Space) && FootClone.instant.onGround)
         {
 
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
@@ -51,12 +51,12 @@ public class PlayerMovementPlatform : MonoBehaviour
         float moveX = Input.GetAxisRaw("Horizontal"); // Dùng GetAxisRaw để có giá trị -1, 0, 1
         // Debug.Log(BodyPlayer.instant.onGround);
         // Gán tốc độ cố định theo X, giữ nguyên tốc độ Y (để không phá lực nhảy)
-        rb.velocity = new Vector2(moveX * speed, rb.velocity.y);
+        rb.velocity = new Vector2(moveX * speed * (-1), rb.velocity.y);
 
         // Lật sprite theo hướng
-        if (moveX > 0)
+        if (moveX < 0)
             spriteRender.flipX = false;
-        else if (moveX < 0)
+        else if (moveX > 0)
             spriteRender.flipX = true;
 
         // Bật/tắt animation chạy
