@@ -350,10 +350,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentLevelType: 1
-  nextSceneBuildIndex: 0
+  nextSceneBuildIndex: 2
   wallTilemap: {fileID: 1473956461}
   goalSpawnPoint: {fileID: 1676336399}
-  redGoalPrefab: {fileID: 0}
+  redGoalPrefab: {fileID: 5297971957267189864, guid: 06d9c43a4b48da54db3f3011059b10d7, type: 3}
   orangeGoalPrefab: {fileID: 6161455144762836260, guid: d285ce9584dcbe34b971ab13a6e1ecbd, type: 3}
 --- !u!1001 &932758944
 PrefabInstance:

@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
-    public enum LevelType { Red, Orange }
+    public enum LevelType { Red, Orange, Yellow }
 
     [Header("Level Configuration")]
     public LevelType currentLevelType;
@@ -15,13 +15,20 @@ public class GameManager : MonoBehaviour
 
     [Header("Object References")]
     public Tilemap wallTilemap;
+    public Tilemap floorTilemap;
+    public GameObject yellowTrailPrefab;
+
+    [Header("Red/Orange Level Objects")]
     public Transform goalSpawnPoint;
     public GameObject redGoalPrefab;
     public GameObject orangeGoalPrefab;
 
     private GameObject player;
-    private bool areSwitchesActivated = false;
     private bool isLevelCompleted = false;
+    private bool areSwitchesActivated = false;
+    private HashSet<Vector3Int> paintedTiles;
+    private int totalFloorTiles = 0;
+    private Vector3Int playerCellPosition;
 
     void Awake()
     {
@@ -31,92 +38,118 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
+        if (currentLevelType == LevelType.Yellow)
+        {
+            InitializeYellowLevel();
+        }
     }
 
     public void AttemptMove(Vector2 direction)
     {
         if (isLevelCompleted) return;
 
-        Vector2 currentPos = player.transform.position;
-        Vector2 targetPos = currentPos + direction;
-
-        if (IsWallAt(targetPos)) return;
-
-        Collider2D blockCollider = GetPushableObjectAt(targetPos);
-        if (blockCollider != null)
+        switch (currentLevelType)
         {
-            if (blockCollider.CompareTag("RedBlock"))
-            {
-                PushRedBlock(blockCollider, direction, targetPos);
-            }
-            else if (blockCollider.CompareTag("OrangeBlock"))
-            {
-                PushOrangeCluster(blockCollider, direction, targetPos);
-            }
-        }
-        else
-        {
-            player.transform.position = targetPos;
+            case LevelType.Red:
+            case LevelType.Orange:
+                AttemptPushMove(direction);
+                break;
+            case LevelType.Yellow:
+                AttemptPaintMove(direction);
+                break;
         }
     }
 
-    private void PushRedBlock(Collider2D blockCollider, Vector2 direction, Vector2 playerTargetPos)
+    public void CheckConditions()
     {
-        Vector2 posAfterBlock = (Vector2)blockCollider.transform.position + direction;
-        if (IsPositionFree(posAfterBlock))
+        if (isLevelCompleted) return;
+        switch (currentLevelType)
         {
-            blockCollider.transform.position = posAfterBlock;
-            player.transform.position = playerTargetPos;
-            // XÓA LỆNH GỌI TẠI ĐÂY
+            case LevelType.Red: case LevelType.Orange: CheckRedOrangeWin(); break;
+            case LevelType.Yellow: CheckYellowWin(); break;
         }
     }
 
-    private void PushOrangeCluster(Collider2D blockCollider, Vector2 direction, Vector2 playerTargetPos)
+    #region Yellow_Level_Logic
+
+    private void InitializeYellowLevel()
     {
-        List<GameObject> connectedBlocks = FindConnectedBlocks(blockCollider.gameObject);
-        if (CanClusterMove(connectedBlocks, direction))
+        if (floorTilemap == null || yellowTrailPrefab == null)
         {
-            MoveCluster(connectedBlocks, direction);
-            player.transform.position = playerTargetPos;
-            // XÓA LỆNH GỌI TẠI ĐÂY
+            Debug.LogError("Cần gán Floor Tilemap và Yellow Trail Prefab cho GameManager!");
+            return;
         }
+
+        paintedTiles = new HashSet<Vector3Int>();
+        
+        // <<< SỬA LỖI ĐẾM TILE >>>
+        // Chúng ta sẽ lấy danh sách các tile có thật thay vì duyệt cả một vùng chữ nhật
+        totalFloorTiles = floorTilemap.GetUsedTilesCount(); 
+        
+        // Dòng Debug này giờ sẽ luôn cho ra số ô chính xác bạn đã vẽ
+        Debug.Log("Initialization: Tổng số ô sàn cần tô: " + totalFloorTiles);
+
+        playerCellPosition = floorTilemap.WorldToCell(player.transform.position);
+        player.transform.position = floorTilemap.GetCellCenterWorld(playerCellPosition);
+        
+        PaintTile(playerCellPosition);
     }
 
-    public void CheckWinCondition()
+    private void AttemptPaintMove(Vector2 direction)
     {
-        if (areSwitchesActivated) return;
+        Vector3Int targetCell = playerCellPosition + new Vector3Int((int)direction.x, (int)direction.y, 0);
 
-        SwitchController[] switches = FindObjectsOfType<SwitchController>();
-        foreach (var s in switches)
+        // --- Kiểm tra di chuyển ---
+        // 1. Ô đích phải là sàn
+        if (!floorTilemap.HasTile(targetCell))
         {
-            if (!s.isActivated) return;
+            return;
+        }
+        
+        // 2. Ô đích không được có tường (kiểm tra lại cho chắc)
+        if (wallTilemap.HasTile(targetCell))
+        {
+            return;
+        }
+        
+        // 3. Ô đích chưa được tô
+        if (paintedTiles.Contains(targetCell))
+        {
+            return;
         }
 
-        Debug.Log("Tất cả công tắc đã được kích hoạt! Mục tiêu xuất hiện!");
-        areSwitchesActivated = true;
-        SpawnGoal();
+        // --- Thực hiện di chuyển ---
+        playerCellPosition = targetCell;
+        player.transform.position = floorTilemap.GetCellCenterWorld(playerCellPosition);
+
+        PaintTile(targetCell);
+        CheckConditions();
     }
-    
-    private void SpawnGoal()
+
+    private void PaintTile(Vector3Int cell)
     {
-        GameObject goalToSpawn = (currentLevelType == LevelType.Red) ? redGoalPrefab : orangeGoalPrefab;
-
-        if (goalToSpawn != null && goalSpawnPoint != null)
+        if (!paintedTiles.Contains(cell))
         {
-            Instantiate(goalToSpawn, goalSpawnPoint.position, Quaternion.identity);
-        }
-        else
-        {
-            Debug.LogError("Chưa thiết lập Goal Prefab hoặc Goal Spawn Point trong GameManager!");
+            paintedTiles.Add(cell);
+            Instantiate(yellowTrailPrefab, floorTilemap.GetCellCenterWorld(cell), Quaternion.identity);
         }
     }
+
+    private void CheckYellowWin()
+    {
+        if (totalFloorTiles > 0 && paintedTiles.Count == totalFloorTiles)
+        {
+            isLevelCompleted = true;
+            Debug.Log("BẠN ĐÃ TÔ MÀU HẾT CÁC Ô! BẠN THẮNG!");
+            CompleteLevel();
+        }
+    }
+
+    #endregion
 
     public void CompleteLevel()
     {
-        if (isLevelCompleted) return;
-
-        isLevelCompleted = true;
-        Debug.Log("BẠN ĐÃ QUA MÀN!");
+        if (!isLevelCompleted) isLevelCompleted = true;
         
         if (nextSceneBuildIndex > 0 && nextSceneBuildIndex < SceneManager.sceneCountInBuildSettings)
         {
@@ -127,14 +160,17 @@ public class GameManager : MonoBehaviour
             Debug.Log("Đây là màn cuối! Hoặc bạn chưa cài đặt 'Next Scene Build Index'.");
         }
     }
-
-    // --- CÁC HÀM HỖ TRỢ (GIỮ NGUYÊN) ---
-
-    private bool IsWallAt(Vector2 position) { /* ... */ return wallTilemap.HasTile(wallTilemap.WorldToCell(position)); }
-    private Collider2D GetPushableObjectAt(Vector2 position) { /* ... */ Collider2D[] colliders = Physics2D.OverlapPointAll(position); foreach (var col in colliders) { if (col.gameObject.CompareTag("RedBlock") || col.gameObject.CompareTag("OrangeBlock")) { return col; } } return null; }
-    private bool IsPositionFree(Vector2 position) { /* ... */ return !IsWallAt(position) && GetPushableObjectAt(position) == null; }
-    private List<GameObject> FindConnectedBlocks(GameObject startBlock) { /* ... */ List<GameObject> connectedCluster = new List<GameObject>(); Queue<GameObject> queue = new Queue<GameObject>(); queue.Enqueue(startBlock); connectedCluster.Add(startBlock); while (queue.Count > 0) { GameObject currentBlock = queue.Dequeue(); Vector2 currentPos = currentBlock.transform.position; CheckNeighbor(currentPos + Vector2.up, queue, connectedCluster); CheckNeighbor(currentPos + Vector2.down, queue, connectedCluster); CheckNeighbor(currentPos + Vector2.left, queue, connectedCluster); CheckNeighbor(currentPos + Vector2.right, queue, connectedCluster); } return connectedCluster; }
-    private void CheckNeighbor(Vector2 position, Queue<GameObject> queue, List<GameObject> cluster) { /* ... */ Collider2D[] colliders = Physics2D.OverlapPointAll(position); foreach (var col in colliders) { if (col.CompareTag("OrangeBlock") && !cluster.Contains(col.gameObject)) { cluster.Add(col.gameObject); queue.Enqueue(col.gameObject); } } }
-    private bool CanClusterMove(List<GameObject> cluster, Vector2 direction) { /* ... */ foreach (var block in cluster) { Vector2 newPos = (Vector2)block.transform.position + direction; if (IsWallAt(newPos)) return false; Collider2D[] collidersAtNewPos = Physics2D.OverlapPointAll(newPos); foreach (var col in collidersAtNewPos) { if ((col.CompareTag("RedBlock") || col.CompareTag("OrangeBlock")) && !cluster.Contains(col.gameObject)) { return false; } } } return true; }
-    private void MoveCluster(List<GameObject> cluster, Vector2 direction) { /* ... */ foreach (var block in cluster) { block.transform.position += (Vector3)direction; } }
+    
+    #region Other Levels and Helpers (Unchanged)
+    private void AttemptPushMove(Vector2 direction) { Vector2 currentPos = player.transform.position; Vector2 targetPos = currentPos + direction; if (IsWallAt(targetPos)) return; Collider2D blockCollider = GetPushableObjectAt(targetPos); if (blockCollider != null) { if (blockCollider.CompareTag("RedBlock")) { Vector2 posAfterBlock = (Vector2)blockCollider.transform.position + direction; if (IsPositionFree(posAfterBlock, null)) { blockCollider.transform.position = posAfterBlock; player.transform.position = targetPos; } } else if (blockCollider.CompareTag("OrangeBlock")) { List<GameObject> connectedBlocks = FindConnectedBlocks(blockCollider.gameObject); if (CanClusterMove(connectedBlocks, direction)) { MoveCluster(connectedBlocks, direction); player.transform.position = targetPos; } } } else { player.transform.position = targetPos; } }
+    private void CheckRedOrangeWin() { if (areSwitchesActivated) return; foreach (var s in FindObjectsOfType<SwitchController>()) { if (!s.isActivated) return; } Debug.Log("Tất cả công tắc đã được kích hoạt! Mục tiêu xuất hiện!"); areSwitchesActivated = true; SpawnGoal(); }
+    private void SpawnGoal() { GameObject goalToSpawn = null; if (currentLevelType == LevelType.Red) goalToSpawn = redGoalPrefab; else if (currentLevelType == LevelType.Orange) goalToSpawn = orangeGoalPrefab; if (goalToSpawn != null && goalSpawnPoint != null) { Instantiate(goalToSpawn, goalSpawnPoint.position, Quaternion.identity); } }
+    private bool IsWallAt(Vector2 position) { return wallTilemap.HasTile(wallTilemap.WorldToCell(position)); }
+    private Collider2D GetPushableObjectAt(Vector2 position) { Collider2D[] colliders = Physics2D.OverlapPointAll(position); foreach (var col in colliders) { if (col.gameObject.CompareTag("RedBlock") || col.gameObject.CompareTag("OrangeBlock")) { return col; } } return null; }
+    private bool IsPositionFree(Vector2 position, List<GameObject> clusterToIgnore) { if (IsWallAt(position)) return false; Collider2D[] colliders = Physics2D.OverlapPointAll(position); foreach (var col in colliders) { if (clusterToIgnore != null && clusterToIgnore.Contains(col.gameObject)) continue; if (col.CompareTag("RedBlock") || col.CompareTag("OrangeBlock")) return false; } return true; }
+    private List<GameObject> FindConnectedBlocks(GameObject startBlock) { List<GameObject> connectedCluster = new List<GameObject>(); Queue<GameObject> queue = new Queue<GameObject>(); queue.Enqueue(startBlock); connectedCluster.Add(startBlock); while (queue.Count > 0) { GameObject currentBlock = queue.Dequeue(); Vector2[] directions = { Vector2.up, Vector2.down, Vector2.left, Vector2.right }; foreach (var dir in directions) { CheckNeighbor((Vector2)currentBlock.transform.position + dir, queue, connectedCluster); } } return connectedCluster; }
+    private void CheckNeighbor(Vector2 position, Queue<GameObject> queue, List<GameObject> cluster) { Collider2D[] colliders = Physics2D.OverlapPointAll(position); foreach (var col in colliders) { if (col.CompareTag("OrangeBlock") && !cluster.Contains(col.gameObject)) { cluster.Add(col.gameObject); queue.Enqueue(col.gameObject); } } }
+    private bool CanClusterMove(List<GameObject> cluster, Vector2 direction) { foreach (var block in cluster) { Vector2 newPos = (Vector2)block.transform.position + direction; if (!IsPositionFree(newPos, cluster)) return false; } return true; }
+    private void MoveCluster(List<GameObject> cluster, Vector2 direction) { foreach (var block in cluster) { block.transform.position += (Vector3)direction; } }
+    #endregion
 }
