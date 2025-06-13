@@ -28,8 +28,11 @@ public class SwitchController : MonoBehaviour
                 spriteRenderer.color = Color.red;
             }
             
-            // THÊM LẠI: Chủ động báo cho GameManager kiểm tra sau khi trạng thái thay đổi
-            GameManager.Instance.CheckWinCondition();
+            // <<< SỬA: Gọi đến hàm kiểm tra điều kiện chung
+            if (GameManager.Instance != null)
+            {
+                GameManager.Instance.CheckConditions();
+            }
         }
     }
 
@@ -40,8 +43,11 @@ public class SwitchController : MonoBehaviour
             isActivated = false;
             spriteRenderer.color = originalColor;
 
-            // THÊM LẠI: Báo cho GameManager kiểm tra cả khi khối đi ra
-            GameManager.Instance.CheckWinCondition();
+            // <<< SỬA: Gọi đến hàm kiểm tra điều kiện chung
+             if (GameManager.Instance != null)
+            {
+                GameManager.Instance.CheckConditions();
+            }
         }
     }
 }
