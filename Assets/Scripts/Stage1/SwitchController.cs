@@ -18,6 +18,7 @@ public class SwitchController : MonoBehaviour
         if (other.CompareTag("RedBlock") || other.CompareTag("OrangeBlock"))
         {
             isActivated = true;
+            FindAnyObjectByType<AudioManager>().Play("Switch");
             
             if (other.CompareTag("OrangeBlock"))
             {

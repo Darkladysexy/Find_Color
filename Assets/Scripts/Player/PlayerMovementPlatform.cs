@@ -40,6 +40,7 @@ public class PlayerMovementPlatform : MonoBehaviour
         Debug.Log(PlayerCollision.instant.onGround);
         if (Input.GetKeyDown(KeyCode.Space) && PlayerCollision.instant.onGround)
         {
+            FindAnyObjectByType<AudioManager>().Play("Jump");
             float zRotation = transform.eulerAngles.z;
             if (Mathf.Approximately(zRotation, 0f))
             {

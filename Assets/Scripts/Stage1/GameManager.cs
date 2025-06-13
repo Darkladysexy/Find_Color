@@ -192,7 +192,35 @@ public class GameManager : MonoBehaviour
         allSwitches = FindObjectsOfType<SwitchController>();
     }
 
-    private void AttemptPushMove(Vector2 direction) { Vector2 currentPos = player.transform.position; Vector2 targetPos = currentPos + direction; if (IsWallAt(targetPos)) return; Collider2D blockCollider = GetPushableObjectAt(targetPos); if (blockCollider != null) { if (blockCollider.CompareTag("RedBlock")) { Vector2 posAfterBlock = (Vector2)blockCollider.transform.position + direction; if (IsPositionFree(posAfterBlock, null)) { blockCollider.transform.position = posAfterBlock; player.transform.position = targetPos; } } else if (blockCollider.CompareTag("OrangeBlock")) { List<GameObject> connectedBlocks = FindConnectedBlocks(blockCollider.gameObject); if (CanClusterMove(connectedBlocks, direction)) { MoveCluster(connectedBlocks, direction); player.transform.position = targetPos; } } } else { player.transform.position = targetPos; } }
+    private void AttemptPushMove(Vector2 direction)
+    {
+        Vector2 currentPos = player.transform.position; Vector2 targetPos = currentPos + direction;
+        if (IsWallAt(targetPos)) return; Collider2D blockCollider = GetPushableObjectAt(targetPos);
+        if (blockCollider != null)
+        {
+            if (blockCollider.CompareTag("RedBlock"))
+            {
+                Vector2 posAfterBlock = (Vector2)blockCollider.transform.position + direction;
+                if (IsPositionFree(posAfterBlock, null))
+                {
+                    blockCollider.transform.position = posAfterBlock;
+                    player.transform.position = targetPos;
+                    FindAnyObjectByType<AudioManager>().Play("Pushed");
+
+                }
+            }
+            else if (blockCollider.CompareTag("OrangeBlock"))
+            {
+                List<GameObject> connectedBlocks = FindConnectedBlocks(blockCollider.gameObject);
+                if (CanClusterMove(connectedBlocks, direction))
+                {
+                    FindAnyObjectByType<AudioManager>().Play("Pushed");
+                    MoveCluster(connectedBlocks, direction); player.transform.position = targetPos;
+                }
+            }
+        }
+        else { player.transform.position = targetPos; }
+    }
     private void CheckRedOrangeWin() { foreach (var s in allSwitches) { if (!s.isActivated) return; } Debug.Log("Tất cả công tắc đã được kích hoạt! Bắt đầu chuỗi hành động thắng!"); if (!isLevelCompleted) StartCoroutine(WinSequence()); }
     private bool IsWallAt(Vector2 position) { return wallTilemap.HasTile(wallTilemap.WorldToCell(position)); }
     private Collider2D GetPushableObjectAt(Vector2 position) { Collider2D[] colliders = Physics2D.OverlapPointAll(position); foreach (var col in colliders) { if (col.gameObject.CompareTag("RedBlock") || col.gameObject.CompareTag("OrangeBlock")) { return col; } } return null; }
