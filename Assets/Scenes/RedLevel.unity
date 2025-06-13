@@ -344,37 +344,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &532294082
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 532294083}
-  m_Layer: 0
-  m_Name: SpawnPoint
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &532294083
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 532294082}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.4, y: 2.38, z: 0.102494486}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &749861619
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -560,9 +529,12 @@ MonoBehaviour:
   currentLevelType: 0
   nextSceneBuildIndex: 1
   wallTilemap: {fileID: 2888141987464775482}
-  goalSpawnPoint: {fileID: 532294083}
-  redGoalPrefab: {fileID: 5297971957267189864, guid: 06d9c43a4b48da54db3f3011059b10d7, type: 3}
+  floorTilemap: {fileID: 0}
+  redGoalPrefab: {fileID: 6281009268914764208, guid: 06d9c43a4b48da54db3f3011059b10d7, type: 3}
   orangeGoalPrefab: {fileID: 0}
+  yellowGoalPrefab: {fileID: 0}
+  yellowTrailPrefab: {fileID: 0}
+  goalSpawnPoint: {fileID: 0}
 --- !u!4 &1297648132
 Transform:
   m_ObjectHideFlags: 0
@@ -704,6 +676,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5258248782668822666, guid: 048e672aa7e27464f8abe625b12236f9, type: 3}
+      propertyPath: m_SortingLayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5258248782668822666, guid: 048e672aa7e27464f8abe625b12236f9, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 861502949
+      objectReference: {fileID: 0}
     - target: {fileID: 6625637769376666272, guid: 048e672aa7e27464f8abe625b12236f9, type: 3}
       propertyPath: m_Name
       value: Grid
@@ -725,4 +705,3 @@ SceneRoots:
   - {fileID: 1574226364}
   - {fileID: 433589907}
   - {fileID: 749861619}
-  - {fileID: 532294083}
