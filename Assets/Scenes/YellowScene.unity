@@ -160,10 +160,11 @@ MonoBehaviour:
   nextSceneBuildIndex: 3
   wallTilemap: {fileID: 107262825}
   floorTilemap: {fileID: 1549050364}
-  yellowTrailPrefab: {fileID: 2082515610527785159, guid: 5a181b086fc84154d9dbc7be9ace84a9, type: 3}
-  goalSpawnPoint: {fileID: 0}
   redGoalPrefab: {fileID: 0}
   orangeGoalPrefab: {fileID: 0}
+  yellowGoalPrefab: {fileID: 3103695581872172330, guid: 265d6e4118a6fb04d8f9b60ea2ce07f5, type: 3}
+  yellowTrailPrefab: {fileID: 2082515610527785159, guid: 5a181b086fc84154d9dbc7be9ace84a9, type: 3}
+  goalSpawnPoint: {fileID: 0}
 --- !u!4 &879410135
 Transform:
   m_ObjectHideFlags: 0
@@ -177,7 +178,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2034834156}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1078268537
 PrefabInstance:
@@ -757,7 +758,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1549050366}
-  - {fileID: 879410135}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!156049354 &2034834157
@@ -845,3 +845,4 @@ SceneRoots:
   - {fileID: 2034834156}
   - {fileID: 1078268537}
   - {fileID: 2136601849}
+  - {fileID: 879410135}
