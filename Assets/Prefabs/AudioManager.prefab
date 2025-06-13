@@ -44,4 +44,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b2f09016765a714e9e11b4ca9554e46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sounds: []
+  sounds:
+  - clip: {fileID: 8300000, guid: 324200984584ed24d9ebd5a049b54ca4, type: 3}
+    name: Theme
+    volume: 0.18
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: a425ec8a200e5ce4b84b6ef5cc5d77fe, type: 3}
+    name: Jump
+    volume: 0.17
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: 94b82d60cdbaa5d44808341516943638, type: 3}
+    name: Switch
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: 6f72fbcda9f570d439ebefa929ca5a8d, type: 3}
+    name: Die
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: 66140264ad4bcd047bc77865bb5ef4f6, type: 3}
+    name: Walk
+    volume: 0.36
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - clip: {fileID: 8300000, guid: 86a6bd6995ef40241978a4f24aec001d, type: 3}
+    name: Pushed
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
