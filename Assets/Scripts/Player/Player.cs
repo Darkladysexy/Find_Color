@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
     private Rigidbody2D rb;
     private SpriteRenderer spriteRenderer;
     private Animator animator;
+    
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -17,13 +18,16 @@ public class Player : MonoBehaviour
     }
     void Start()
     {
-
+        
     }
 
 
     void Update()
     {
-        MovePlayer();
+        if (Menu.instant.isPaused)
+        {
+            MovePlayer();
+        }
     }
     void MovePlayer()
     {

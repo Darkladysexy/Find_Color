@@ -27,6 +27,7 @@ public class PlayerMovementPlatform : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Menu.instant.isPaused) return;
         MovePlayer();
         Jump();
     }

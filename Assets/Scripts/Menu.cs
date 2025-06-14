@@ -5,11 +5,16 @@ using UnityEngine.SceneManagement;
 
 public class Menu : MonoBehaviour
 {
-    private bool isPaused = false;
+    public bool isPaused = false;
+    public static Menu instant;
+    void Awake()
+    {
+        instant = this;
+    }
     // Start is called before the first frame update
     void Start()
     {
-
+        instant = this;
     }
 
     // Update is called once per frame
@@ -23,8 +28,9 @@ public class Menu : MonoBehaviour
         Transform menuTransform = canvas.transform.Find("Menu");
         GameObject menu = menuTransform.gameObject;
         menu.SetActive(false);
-
-        TogglePause();
+        // TogglePause();
+        Time.timeScale = 1;
+        isPaused = false;
 
     }
 
@@ -34,7 +40,9 @@ public class Menu : MonoBehaviour
         Transform menuTransform = canvas.transform.Find("Menu");
         GameObject menu = menuTransform.gameObject;
         menu.SetActive(true);
-        TogglePause();
+        // TogglePause();
+        Time.timeScale = 0;
+        isPaused = true;
     }
 
     public void Restart()
@@ -44,14 +52,16 @@ public class Menu : MonoBehaviour
 
         // Tải lại scene với tên đã lấy được
         SceneManager.LoadScene(currentSceneName);
-        TogglePause();
+        // TogglePause();
+        Time.timeScale = 1;
+        isPaused = false;
     }
-    void TogglePause()
-    {
-        isPaused = !isPaused;
-        Time.timeScale = isPaused ? 0f : 1f;
-        Debug.Log(isPaused ? "Game paused" : "Game resumed");
-    }
+    // void TogglePause()
+    // {
+    //     isPaused = !isPaused;
+    //     Time.timeScale = isPaused ? 0f : 1f;
+    //     Debug.Log(isPaused ? "Game paused" : "Game resumed");
+    // }
     public void ExitToMainMenu()
     {
         SceneManager.LoadScene("MainMenu");

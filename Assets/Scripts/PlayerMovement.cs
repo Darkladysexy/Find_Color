@@ -14,6 +14,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        if (Menu.instant.isPaused) return;
         // Dùng GetKeyDown để chỉ nhận tín hiệu một lần duy nhất khi phím được nhấn xuống
         if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
         {
@@ -27,12 +28,12 @@ public class PlayerMovement : MonoBehaviour
             GameManager.Instance.AttemptMove(Vector2.down);
         }
         else if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
-        {   
+        {
             // --- THÊM LOGIC LẬT HÌNH Ở ĐÂY ---
             // Đặt flipX = true để nhân vật nhìn sang trái
             spriteRenderer.flipX = true;
             FindAnyObjectByType<AudioManager>().Play("Walk");
-            
+
             GameManager.Instance.AttemptMove(Vector2.left);
         }
         else if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
@@ -41,7 +42,7 @@ public class PlayerMovement : MonoBehaviour
             // Đặt flipX = false để nhân vật nhìn sang phải (hướng mặc định)
             spriteRenderer.flipX = false;
             FindAnyObjectByType<AudioManager>().Play("Walk");
-            
+
             GameManager.Instance.AttemptMove(Vector2.right);
         }
     }
