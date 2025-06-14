@@ -24,6 +24,7 @@ public class Button2 : MonoBehaviour
             groundSpawn.SetActive(true);
             Destroy(groundDesTroy);
             Destroy(this.gameObject);
+            
         }
     }
 }
