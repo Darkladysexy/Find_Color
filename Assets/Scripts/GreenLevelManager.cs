@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Tilemaps; // Thêm thư viện Tilemap
 
 public class GreenLevelManager : MonoBehaviour
 {
@@ -10,13 +11,16 @@ public class GreenLevelManager : MonoBehaviour
     public int startingSeeds = 0; // Số hạt mầm có sẵn khi bắt đầu
     public int nextSceneBuildIndex; // Màn tiếp theo để tải
 
+    [Header("Tham chiếu trong Scene")]
+    public GameObject player;
+    public Tilemap wallTilemap; // Tham chiếu đến Tilemap của tường
+
     [Header("Prefabs")]
     public GameObject greenBlockPrefab; // Prefab của khối Lục
 
     // --- Biến nội bộ ---
     private int currentSeedCount;
     private bool isLevelCompleted = false;
-    private GameObject player;
 
     private void Awake()
     {
@@ -33,10 +37,14 @@ public class GreenLevelManager : MonoBehaviour
 
     private void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
+        if (player == null)
+        {
+            player = GameObject.FindGameObjectWithTag("Player");
+        }
         if (player == null)
         {
             Debug.LogError("LỖI: Không tìm thấy GameObject có tag 'Player' trong Scene!");
+            this.enabled = false; // Tắt script này nếu không có Player
             return;
         }
 
@@ -67,32 +75,47 @@ public class GreenLevelManager : MonoBehaviour
     // Hàm xử lý việc trồng cây
     private void TryPlantBlock()
     {
-        if (currentSeedCount > 0)
+        if (currentSeedCount <= 0)
         {
-            currentSeedCount--;
-            Debug.Log("Đã trồng! Hạt mầm còn lại: " + currentSeedCount);
-            // TODO: Cập nhật UI
+            Debug.Log("Không có hạt mầm!");
+            return;
+        }
 
-            // Lấy hướng nhìn của người chơi một cách an toàn
-            // Dựa vào việc sprite có bị lật hay không (flipX)
-            SpriteRenderer playerSprite = player.GetComponent<SpriteRenderer>();
-            float xOffset = playerSprite.flipX ? -1.5f : 1.5f; // Nếu lật (nhìn sang trái) thì offset âm
-            
-            // Vị trí trồng cây sẽ ở phía trước và hơi cao hơn người chơi
-            Vector3 plantPosition = player.transform.position + new Vector3(xOffset, 0.5f, 0);
+        // 1. Xác định vị trí muốn trồng
+        SpriteRenderer playerSprite = player.GetComponent<SpriteRenderer>();
+        if (playerSprite == null)
+        {
+            Debug.LogError("Player không có SpriteRenderer!");
+            return;
+        }
 
-            if (greenBlockPrefab != null)
+        // Lấy hướng nhìn của người chơi dựa vào việc sprite có bị lật hay không
+        float xOffset = playerSprite.flipX ? -1.2f : 1.2f; // Nếu lật (nhìn sang trái) thì offset âm
+        Vector3 potentialPlantPosition = player.transform.position + new Vector3(xOffset, 0.5f, 0);
+
+        // 2. Kiểm tra xem vị trí đó có hợp lệ không
+        if (wallTilemap != null)
+        {
+            Vector3Int cellToPlantIn = wallTilemap.WorldToCell(potentialPlantPosition);
+            if (wallTilemap.HasTile(cellToPlantIn))
             {
-                Instantiate(greenBlockPrefab, plantPosition, Quaternion.identity);
+                Debug.Log("Không thể trồng cây trong tường!");
+                return; // Dừng lại nếu có tường
             }
-            else
-            {
-                Debug.LogError("Chưa gán Green Block Prefab vào GreenLevelManager!");
-            }
+        }
+        
+        // 3. Nếu vị trí hợp lệ, tiến hành trồng cây
+        currentSeedCount--;
+        Debug.Log("Đã trồng! Hạt mầm còn lại: " + currentSeedCount);
+        // TODO: Cập nhật UI
+
+        if (greenBlockPrefab != null)
+        {
+            Instantiate(greenBlockPrefab, potentialPlantPosition, Quaternion.identity);
         }
         else
         {
-            Debug.Log("Không có hạt mầm để trồng!");
+            Debug.LogError("Chưa gán Green Block Prefab vào GreenLevelManager!");
         }
     }
 
@@ -104,7 +127,6 @@ public class GreenLevelManager : MonoBehaviour
         
         Debug.Log("ĐÃ VỀ ĐÍCH! Chuẩn bị qua màn...");
         
-        // Tải màn chơi tiếp theo nếu có
         if (nextSceneBuildIndex > 0)
         {
             SceneManager.LoadScene(nextSceneBuildIndex);
