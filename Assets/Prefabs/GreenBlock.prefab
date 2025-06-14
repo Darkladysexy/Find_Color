@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 8472674587344628918}
   m_Layer: 0
   m_Name: GreenBlock
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: 861502949
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: -1367412176, guid: 86bfc68a3c16dae418809e2e27ba4ea1, type: 3}
+  m_Sprite: {fileID: 17225586, guid: 86bfc68a3c16dae418809e2e27ba4ea1, type: 3}
   m_Color: {r: 0.046714056, g: 0.9169811, b: 0.23694596, a: 1}
   m_FlipX: 0
   m_FlipY: 0
