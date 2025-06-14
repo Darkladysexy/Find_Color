@@ -58,11 +58,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3679812772797780974, guid: 5ecbdfc7d4fc3ee46995fc87eacb4541, type: 3}
       propertyPath: m_SortingLayer
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3679812772797780974, guid: 5ecbdfc7d4fc3ee46995fc87eacb4541, type: 3}
       propertyPath: m_SortingLayerID
       value: 861502949
+      objectReference: {fileID: 0}
+    - target: {fileID: 3782517829677107837, guid: 5ecbdfc7d4fc3ee46995fc87eacb4541, type: 3}
+      propertyPath: m_GravityScale
+      value: 0.9
       objectReference: {fileID: 0}
     - target: {fileID: 4402810113632483621, guid: 5ecbdfc7d4fc3ee46995fc87eacb4541, type: 3}
       propertyPath: m_Name

@@ -1926,7 +1926,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentLevelType: 1
-  nextSceneBuildIndex: 2
+  nextSceneBuildIndex: 4
   wallTilemap: {fileID: 255028308}
   floorTilemap: {fileID: 0}
   redGoalPrefab: {fileID: 5297971957267189864, guid: 06d9c43a4b48da54db3f3011059b10d7, type: 3}
@@ -1965,6 +1965,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a989b9501bb742146bee91c04da1118a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isPaused: 0
 --- !u!114 &846554578
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2314,7 +2315,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Button
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

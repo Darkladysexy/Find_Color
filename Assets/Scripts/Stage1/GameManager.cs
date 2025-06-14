@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
-    public enum LevelType { Red, Orange, Yellow }
+    public enum LevelType { Red, Orange, Yellow}
 
     [Header("Level Configuration")]
     public LevelType currentLevelType;
