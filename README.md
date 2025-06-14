@@ -9,7 +9,7 @@ Mục Tiêu: Di chuyển toàn bộ cụm khối Cam để giải phóng một l
 Cách Chơi: khi di chuyển sẽ để lại một vệt sáng màu Vàng vĩnh viễn trên sàn. Bạn không được đi lại vào ô đã có vệt sáng.
 Mục Tiêu: "Sơn" màu Vàng lên tất cả các ô sàn có thể đi được trong màn chơi.
 4. LỤC - QUY TẮC: MỌC CÂY (GROW)
-Cách Chơi: Bạn thu thập các hạt mầm trên đường đi. Sau đó, bạn có thể "trồng" một khối màu Lục tại một ô trống bên cạnh. Khối này sẽ trở thành vật cản.
+Cách Chơi: Bạn thu thập các hạt mầm trên đường đi. Sau đó, bạn có thể "trồng" một khối màu Lục tại một ô trống bên cạnh. Bấm nút “C” để đặt khối 
 Mục Tiêu: Đi đến ô đích. Thường bạn sẽ phải dùng các khối Lục tự tạo để làm cầu hoặc chặn thứ gì đó.
 5. LAM - QUY TẮC: HOÁN ĐỔI (SWAP)
 Cách Chơi:  Đi đến ô đích bằng cách dùng các khối Lam làm "trạm trung chuyển" để vượt qua các địa hình phức tạp.
