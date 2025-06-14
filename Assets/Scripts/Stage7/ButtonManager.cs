@@ -22,12 +22,18 @@ public class ButtonManager : MonoBehaviour
     }
     void OnTriggerEnter2D(Collider2D collision)
     {
-        animator.SetBool("IsPushed", true);
-        rb.gravityScale = -0.2F;
+        if (collision.gameObject.tag == "Ground")
+        { 
+            animator.SetBool("IsPushed", true);
+            rb.gravityScale = -0.2F;
+        }
     }
     void OnTriggerExit2D(Collider2D collision)
     {
-        animator.SetBool("IsPushed", false);
-        rb.gravityScale = 0.2F;
+        if (collision.gameObject.tag == "Ground")
+        {     
+            animator.SetBool("IsPushed", false);
+            rb.gravityScale = 0.15F;
+        }
     }
 }
