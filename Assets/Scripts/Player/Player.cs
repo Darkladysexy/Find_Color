@@ -35,7 +35,7 @@ public class Player : MonoBehaviour
         float moveY = Input.GetAxis("Vertical");
 
         Vector2 playerInput = new Vector2(moveX, moveY).normalized * speed;
-        rb.velocity = playerInput;
+        rb.linearVelocity = playerInput;
         if (playerInput.x > 0)
         {
             spriteRenderer.flipX = false; // Face right

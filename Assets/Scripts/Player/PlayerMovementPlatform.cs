@@ -60,7 +60,7 @@ public class PlayerMovementPlatform : MonoBehaviour
         float moveX = Input.GetAxisRaw("Horizontal"); // Dùng GetAxisRaw để có giá trị -1, 0, 1
         // Debug.Log(BodyPlayer.instant.onGround);
         // Gán tốc độ cố định theo X, giữ nguyên tốc độ Y (để không phá lực nhảy)
-        rb.velocity = new Vector2(moveX * speed, rb.velocity.y);
+        rb.linearVelocity = new Vector2(moveX * speed, rb.linearVelocity.y);
 
         // Lật sprite theo hướng
         if (moveX > 0)

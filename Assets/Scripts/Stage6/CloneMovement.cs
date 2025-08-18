@@ -51,7 +51,7 @@ public class CloneMovement : MonoBehaviour
         float moveX = Input.GetAxisRaw("Horizontal"); // Dùng GetAxisRaw để có giá trị -1, 0, 1
         // Debug.Log(BodyPlayer.instant.onGround);
         // Gán tốc độ cố định theo X, giữ nguyên tốc độ Y (để không phá lực nhảy)
-        rb.velocity = new Vector2(moveX * speed * (-1), rb.velocity.y);
+        rb.linearVelocity = new Vector2(moveX * speed * (-1), rb.linearVelocity.y);
 
         // Lật sprite theo hướng
         if (moveX < 0)
