@@ -1,30 +1,25 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Button : MonoBehaviour
 {
+    [Tooltip("Ground object to enable when a clone steps on this button.")]
     public GameObject ground;
-    // Start is called before the first frame update
-    void Start()
-    {
 
-    }
+    private const string k_CloneTag = "Clone";
 
-    // Update is called once per frame
-    void Update()
+    private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (!collision.gameObject.CompareTag(k_CloneTag))
+        {
+            return;
+        }
 
-    }
-    void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag == "Clone")
+        if (ground != null)
         {
             ground.SetActive(true);
-            // Rigidbody2D rb = clone.GetComponent<Rigidbody2D>();
-            // rb.bodyType = RigidbodyType2D.Static;
-            Destroy(collision.gameObject);
-            PlayerCollision.instant.onGround = true;
         }
+
+        Destroy(collision.gameObject);
+        PlayerCollision.instant.onGround = true;
     }
 }

@@ -1,56 +1,51 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : MonoBehaviour
 {
     [SerializeField]
     private float speed = 5f;
-    private Rigidbody2D rb;
-    private SpriteRenderer spriteRenderer;
-    private Animator animator;
-    
+
+    private static readonly int k_IsRunHash = Animator.StringToHash("isRun");
+
+    private Rigidbody2D m_rigidbody;
+    private SpriteRenderer m_spriteRenderer;
+    private Animator m_animator;
+
     private void Awake()
     {
-        rb = GetComponent<Rigidbody2D>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        animator = GetComponent<Animator>();
-    }
-    void Start()
-    {
-        
+        m_rigidbody = GetComponent<Rigidbody2D>();
+        m_spriteRenderer = GetComponent<SpriteRenderer>();
+        m_animator = GetComponent<Animator>();
     }
 
-
-    void Update()
+    private void Update()
     {
+        // NOTE: preserved exactly as the original — movement runs only while paused.
+        // This condition looks inverted (other scripts use "if paused, return").
+        // Confirm with the level designer before "fixing"; see REVIEW_REPORT.md.
         if (Menu.instant.isPaused)
         {
             MovePlayer();
         }
     }
-    void MovePlayer()
+
+    private void MovePlayer()
     {
-        float moveX = Input.GetAxis("Horizontal");
-        float moveY = Input.GetAxis("Vertical");
+        float moveX = VirtualInput.GetAxis("Horizontal");
+        float moveY = VirtualInput.GetAxis("Vertical");
 
         Vector2 playerInput = new Vector2(moveX, moveY).normalized * speed;
-        rb.velocity = playerInput;
-        if (playerInput.x > 0)
+        m_rigidbody.velocity = playerInput;
+
+        if (playerInput.x > 0f)
         {
-            spriteRenderer.flipX = false; // Face right
+            m_spriteRenderer.flipX = false;
         }
-        else if (playerInput.x < 0)
+        else if (playerInput.x < 0f)
         {
-            spriteRenderer.flipX = true; // Face left
+            m_spriteRenderer.flipX = true;
         }
-        if (playerInput != Vector2.zero || playerInput != Vector2.zero)
-        {
-            animator.SetBool("isRun", true);
-        }
-        else
-        {
-            animator.SetBool("isRun", false);
-        }
+
+        m_animator.SetBool(k_IsRunHash, playerInput != Vector2.zero);
     }
 }

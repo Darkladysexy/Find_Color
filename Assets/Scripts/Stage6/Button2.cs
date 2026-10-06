@@ -1,30 +1,31 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Button2 : MonoBehaviour
 {
+    [Tooltip("Ground to destroy when a clone steps on this button.")]
     public GameObject groundDesTroy;
+    [Tooltip("Ground to enable when a clone steps on this button.")]
     public GameObject groundSpawn;
-    // Start is called before the first frame update
-    void Start()
-    {
 
-    }
+    private const string k_CloneTag = "Clone";
 
-    // Update is called once per frame
-    void Update()
+    private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (!collision.gameObject.CompareTag(k_CloneTag))
+        {
+            return;
+        }
 
-    }
-    void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag == "Clone")
+        if (groundSpawn != null)
         {
             groundSpawn.SetActive(true);
-            Destroy(groundDesTroy);
-            Destroy(this.gameObject);
-            
         }
+
+        if (groundDesTroy != null)
+        {
+            Destroy(groundDesTroy);
+        }
+
+        Destroy(gameObject);
     }
 }
