@@ -1,46 +1,71 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ChangeGravity : MonoBehaviour
 {
-    // Start is called before the first frame update
+    [Tooltip("Optional box affected by this gravity zone.")]
     public GameObject box;
-    void Start()
-    {
 
+    private const string k_GravityUpTag = "GravityUp";
+    private const string k_GravityDownTag = "GravityDown";
+    private const float k_UpGravityScale = -1f;
+    private const float k_DownGravityScale = 1f;
+    private const float k_FlippedRotationZ = 180f;
+    private const float k_NormalRotationZ = 0f;
+
+    private Rigidbody2D m_boxRigidbody;
+    private Rigidbody2D m_playerRigidbody;
+    private bool m_initialized;
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        EnsureCached();
+
+        if (CompareTag(k_GravityUpTag))
+        {
+            ApplyGravity(k_UpGravityScale, k_FlippedRotationZ);
+        }
+        else if (CompareTag(k_GravityDownTag))
+        {
+            ApplyGravity(k_DownGravityScale, k_NormalRotationZ);
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    private void EnsureCached()
     {
+        if (m_initialized)
+        {
+            return;
+        }
 
+        m_initialized = true;
+
+        if (box != null)
+        {
+            m_boxRigidbody = box.GetComponent<Rigidbody2D>();
+        }
+
+        if (PlayerMovementPlatform.instant != null)
+        {
+            m_playerRigidbody = PlayerMovementPlatform.instant.GetComponent<Rigidbody2D>();
+        }
     }
-    void OnTriggerEnter2D(Collider2D collision)
+
+    private void ApplyGravity(float gravityScale, float rotationZ)
     {
-        if (this.gameObject.tag == "GravityUp")
+        if (m_boxRigidbody != null)
         {
-            if (box != null)
-            {
-                Rigidbody2D boxRB = box.GetComponent<Rigidbody2D>();
-                boxRB.gravityScale = -1;
-            }
-            Rigidbody2D rb = PlayerMovementPlatform.instant.gameObject.GetComponent<Rigidbody2D>();
-            rb.gravityScale = -1;
-            Quaternion rotation = PlayerMovementPlatform.instant.gameObject.transform.rotation;
-            PlayerMovementPlatform.instant.gameObject.transform.rotation = Quaternion.Euler(rotation.eulerAngles.x, rotation.eulerAngles.y, 180f);
+            m_boxRigidbody.gravityScale = gravityScale;
         }
-        else if (this.gameObject.tag == "GravityDown")
+
+        if (m_playerRigidbody == null || PlayerMovementPlatform.instant == null)
         {
-            if (box != null)
-            {
-                Rigidbody2D boxRB = box.GetComponent<Rigidbody2D>();
-                boxRB.gravityScale = 1;
-            }
-            Rigidbody2D rb = PlayerMovementPlatform.instant.gameObject.GetComponent<Rigidbody2D>();
-            rb.gravityScale = 1;
-            Quaternion rotation = PlayerMovementPlatform.instant.gameObject.transform.rotation;
-            PlayerMovementPlatform.instant.gameObject.transform.rotation = Quaternion.Euler(rotation.eulerAngles.x, rotation.eulerAngles.y, 0);
+            return;
         }
+
+        m_playerRigidbody.gravityScale = gravityScale;
+
+        Vector3 eulerAngles = PlayerMovementPlatform.instant.transform.rotation.eulerAngles;
+        PlayerMovementPlatform.instant.transform.rotation =
+            Quaternion.Euler(eulerAngles.x, eulerAngles.y, rotationZ);
     }
 }

@@ -1,67 +1,57 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CloneMovement : MonoBehaviour
 {
+    public static CloneMovement instant;
+
     [SerializeField]
     private float speed = 5f;
-    private Rigidbody2D rb;
-    private SpriteRenderer spriteRender;
-    private Animator animator;
+    [Tooltip("Impulse applied when jumping.")]
     public float jumpForce = 7f;
-    public static CloneMovement instant;
-    void Awake()
+
+    private static readonly int k_IsRunHash = Animator.StringToHash("isRun");
+
+    private Rigidbody2D m_rigidbody;
+    private SpriteRenderer m_spriteRenderer;
+    private Animator m_animator;
+
+    private void Awake()
     {
         instant = this;
+        m_rigidbody = GetComponent<Rigidbody2D>();
+        m_spriteRenderer = GetComponent<SpriteRenderer>();
+        m_animator = GetComponent<Animator>();
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        rb = GetComponent<Rigidbody2D>();
-        animator = GetComponent<Animator>();
-        spriteRender = GetComponent<SpriteRenderer>();
-    }
-
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
         MovePlayer();
-        Jump();
+        HandleJump();
     }
-    void FixedUpdate()
-    {
 
-
-    }
-    private void Jump()
+    private void HandleJump()
     {
-        Debug.Log(FootClone.instant.onGround);
         if (Input.GetKeyDown(KeyCode.Space) && FootClone.instant.onGround)
         {
-
-            rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+            m_rigidbody.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
         }
     }
 
-    void MovePlayer()
+    private void MovePlayer()
     {
-        
-        float moveX = Input.GetAxisRaw("Horizontal"); // Dùng GetAxisRaw để có giá trị -1, 0, 1
-        // Debug.Log(BodyPlayer.instant.onGround);
-        // Gán tốc độ cố định theo X, giữ nguyên tốc độ Y (để không phá lực nhảy)
-        rb.velocity = new Vector2(moveX * speed * (-1), rb.velocity.y);
+        // The clone mirrors the player's horizontal input.
+        float moveX = Input.GetAxisRaw("Horizontal");
+        m_rigidbody.velocity = new Vector2(moveX * speed * -1f, m_rigidbody.velocity.y);
 
-        // Lật sprite theo hướng
-        if (moveX < 0)
-            spriteRender.flipX = false;
-        else if (moveX > 0)
-            spriteRender.flipX = true;
+        if (moveX < 0f)
+        {
+            m_spriteRenderer.flipX = false;
+        }
+        else if (moveX > 0f)
+        {
+            m_spriteRenderer.flipX = true;
+        }
 
-        // Bật/tắt animation chạy
-        animator.SetBool("isRun", moveX != 0);
+        m_animator.SetBool(k_IsRunHash, moveX != 0f);
     }
-
-
 }

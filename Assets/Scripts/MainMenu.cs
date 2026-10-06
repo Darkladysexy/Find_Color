@@ -1,25 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
+    // Build index of the first playable level (see Build Settings).
+    private const int k_FirstLevelBuildIndex = 2;
 
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
     public void StartGame()
     {
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene(k_FirstLevelBuildIndex);
     }
+
     public void ExitGame()
     {
         Application.Quit();

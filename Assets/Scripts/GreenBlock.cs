@@ -2,13 +2,12 @@ using UnityEngine;
 
 public class GreenBlock : MonoBehaviour
 {
-    [Tooltip("Thời gian tồn tại của khối (giây). Đặt là 0 để tồn tại vĩnh viễn.")]
+    [Tooltip("Lifetime in seconds. 0 = permanent.")]
     public float lifetime = 0f;
 
-    void Start()
+    private void Start()
     {
-        // Nếu có thời gian tồn tại, khối sẽ tự hủy sau khoảng thời gian đó
-        if (lifetime > 0)
+        if (lifetime > 0f)
         {
             Destroy(gameObject, lifetime);
         }

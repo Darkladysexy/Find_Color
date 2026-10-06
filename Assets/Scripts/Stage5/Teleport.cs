@@ -1,24 +1,17 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Teleport : MonoBehaviour
 {
+    [Tooltip("Destination portal.")]
     public GameObject portal2;
-    // Start is called before the first frame update
-    void Start()
-    {
 
-    }
+    private const string k_PlayerTag = "Player";
 
-    // Update is called once per frame
-    void Update()
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-
-    }
-    void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag == "Player")
+        if (collision.gameObject.CompareTag(k_PlayerTag)
+            && PlayerMovementPlatform.instant != null
+            && portal2 != null)
         {
             PlayerMovementPlatform.instant.transform.position = portal2.transform.position;
         }
