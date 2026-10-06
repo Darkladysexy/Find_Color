@@ -66,7 +66,8 @@ public class GreenLevelManager : MonoBehaviour
             return;
         }
 
-        if (Input.GetKeyDown(k_PlantKey))
+        // Đọc qua VirtualInput để nút "action" trên mobile cũng trồng cây được.
+        if (VirtualInput.GetKeyDown(k_PlantKey))
         {
             TryPlantBlock();
         }

@@ -31,8 +31,8 @@ public class Player : MonoBehaviour
 
     private void MovePlayer()
     {
-        float moveX = Input.GetAxis("Horizontal");
-        float moveY = Input.GetAxis("Vertical");
+        float moveX = VirtualInput.GetAxis("Horizontal");
+        float moveY = VirtualInput.GetAxis("Vertical");
 
         Vector2 playerInput = new Vector2(moveX, moveY).normalized * speed;
         m_rigidbody.velocity = playerInput;
